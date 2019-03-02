@@ -67,3 +67,26 @@ func TestExchange(t *testing.T) {
 		t.Errorf("Access token %v, want %v", got, want)
 	}
 }
+
+func TestPasswordCredentialsToken(t *testing.T) {
+	conf := newOAuth2Config()
+	fakeConf := newFakeConfig(conf)
+
+	ctx := context.TODO()
+
+	token, err := fakeConf.PasswordCredentialsToken(
+		ctx,
+		"username",
+		"password",
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := "ACCESS_TOKEN"
+	got := token.AccessToken
+
+	if got != want {
+		t.Errorf("Access token %v, want %v", got, want)
+	}
+}
