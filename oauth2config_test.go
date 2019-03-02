@@ -14,3 +14,12 @@ func TestConfigInterface(t *testing.T) {
 		t.Errorf("Given config doesn't implement Config")
 	}
 }
+
+func TestFakeConfig(t *testing.T) {
+	c := &FakeConfig{}
+	var i interface{} = c
+
+	if _, ok := i.(Config); ok != true {
+		t.Errorf("FakeConfig doesn't implement Config")
+	}
+}
