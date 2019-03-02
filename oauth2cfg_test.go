@@ -1,4 +1,4 @@
-package oauth2config
+package oauth2cfg
 
 import (
 	"testing"
