@@ -24,6 +24,15 @@ func newFakeConfig(c *oauth2.Config) *FakeConfig {
 	return &FakeConfig{Config: c}
 }
 
+func TestFakeConfig(t *testing.T) {
+	c := &FakeConfig{}
+	var i interface{} = c
+
+	if _, ok := i.(Config); ok != true {
+		t.Errorf("FakeConfig doesn't implement Config")
+	}
+}
+
 func TestAuthCodeURL(t *testing.T) {
 	conf := newOAuth2Config()
 	fakeConf := newFakeConfig(conf)
