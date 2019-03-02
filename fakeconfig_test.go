@@ -1,6 +1,7 @@
 package oauth2config
 
 import (
+	"context"
 	"testing"
 
 	"golang.org/x/oauth2"
@@ -40,5 +41,29 @@ func TestAuthCodeURL(t *testing.T) {
 
 	if got != want {
 		t.Errorf("Auth code URL %v, want %v", got, want)
+	}
+}
+
+func TestExchange(t *testing.T) {
+	conf := newOAuth2Config()
+	fakeConf := newFakeConfig(conf)
+
+	ctx := context.TODO()
+
+	token, err := fakeConf.Exchange(
+		ctx,
+		"code",
+		oauth2.AccessTypeOffline,
+		oauth2.ApprovalForce,
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := "ACCESS_TOKEN"
+	got := token.AccessToken
+
+	if got != want {
+		t.Errorf("Access token %v, want %v", got, want)
 	}
 }
